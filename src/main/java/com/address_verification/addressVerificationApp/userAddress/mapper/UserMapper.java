@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.model.mapper;
+package com.address_verification.addressVerificationApp.userAddress.mapper;
 
 import com.address_verification.addressVerificationApp.userAddress.model.User;
 import com.address_verification.addressVerificationApp.userAddress.model.UserDTO;
