@@ -1,7 +1,7 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
 import com.address_verification.addressVerificationApp.userAddress.model.User;
-import com.address_verification.addressVerificationApp.userAddress.model.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
 
 public class UserMapper {
     // Converts User Entity to userDTO
@@ -9,8 +9,7 @@ public class UserMapper {
         UserDTO userDTO = new UserDTO();
         userDTO.setFullName(user.getFullName());
         userDTO.setEmail(user.getEmail());
-        userDTO.setLatitude(user.getLatitude());
-        userDTO.setLongitude(user.getLongitude());
+        userDTO.setPassword(user.getPassword());
         return userDTO;
     }
 
@@ -19,8 +18,7 @@ public class UserMapper {
         User userEntity = new User();
         userEntity.setFullName(userDTO.getFullName());
         userEntity.setEmail(userDTO.getEmail());
-        userEntity.setLatitude(userDTO.getLatitude());
-        userEntity.setLongitude(userDTO.getLongitude());
+        userEntity.setPassword(userDTO.getPassword());
         return userEntity;
 
     }

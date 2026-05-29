@@ -1,8 +1,11 @@
 package com.address_verification.addressVerificationApp.userAddress;
 
-import com.address_verification.addressVerificationApp.userAddress.model.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
+import org.springframework.http.ResponseEntity;
 
 public interface IUserService {
 
-    public void verifyUserAddress(UserDTO userDTO);
+
+    public ResponseEntity<?> verifyUserAddress(int user_id);
+
 }

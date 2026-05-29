@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.userAddress.model;
 
-import jakarta.annotation.Generated;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,40 +10,31 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "addresses")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(
             nullable = false
     )
-    private String fullName;
-
-    @Column(
-            unique = true,
-            nullable = false
-    )
-    private String email;
-
+    private String city;
     @Column(
             nullable = false
     )
-    private String password;
+    private String state;
+    @Column(
+            nullable = false
+    )
+    private String country;
+    @Column(
+            nullable = false
+    )
+    private String formattedAddress;
 
-//    @Column(
-//            nullable = false
-//    )
-//    private Double longitude;
-//
-//    @Column(
-//            nullable = false
-//    )
-//    private Double latitude;
 
-    @OneToOne(mappedBy = "user")
-    private Address address;
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 }

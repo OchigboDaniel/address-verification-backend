@@ -2,7 +2,7 @@ package com.address_verification.addressVerificationApp.userAddress.model.mapper
 
 import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;
 import com.address_verification.addressVerificationApp.userAddress.model.User;
-import com.address_verification.addressVerificationApp.userAddress.model.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +17,7 @@ class UserMapperTest {
 
     @BeforeEach
     void setUp() {
-        user = new User(
-                1,
-                "John Deo",
-                "johndeo@gmail.com",
-                51.5074,
-                -0.1278
-        );
+
 
         userDTO = new UserDTO(
                 "John Deo",
