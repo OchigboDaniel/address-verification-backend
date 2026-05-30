@@ -1,9 +1,7 @@
 package com.address_verification.addressVerificationApp.configuration;
 
-import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

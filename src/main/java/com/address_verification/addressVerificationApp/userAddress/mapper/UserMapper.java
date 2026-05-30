@@ -1,12 +1,12 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
 import com.address_verification.addressVerificationApp.userAddress.model.User;
-import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.request.CreateUserRequest;
 
 public class UserMapper {
     // Converts User Entity to userDTO
-    public static UserDTO convertToDTO(User user){
-        UserDTO userDTO = new UserDTO();
+    public static CreateUserRequest convertToDTO(User user){
+        CreateUserRequest userDTO = new CreateUserRequest();
         userDTO.setFullName(user.getFullName());
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
@@ -14,7 +14,7 @@ public class UserMapper {
     }
 
     // Convert UserDTO to Entity
-    public static  User convertToEntity(UserDTO userDTO){
+    public static  User convertToEntity(CreateUserRequest userDTO){
         User userEntity = new User();
         userEntity.setFullName(userDTO.getFullName());
         userEntity.setEmail(userDTO.getEmail());

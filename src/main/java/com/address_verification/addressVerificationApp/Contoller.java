@@ -2,7 +2,7 @@ package com.address_verification.addressVerificationApp;
 
 import com.address_verification.addressVerificationApp.authentication.AuthService;
 import com.address_verification.addressVerificationApp.userAddress.UserService;
-import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -24,9 +24,9 @@ public class Contoller {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO){
-        authService.createUser(userDTO);
-        return ResponseEntity.status(201).build();
+    public ResponseEntity<ApiRespondsData> addUser(@RequestBody CreateUserRequest userDTO){
+        ApiRespondsData result = authService.createUser(userDTO);
+        return ResponseEntity.status(201).body(result);
     }
 
     @GetMapping("/addresses/{id}/verify-address")

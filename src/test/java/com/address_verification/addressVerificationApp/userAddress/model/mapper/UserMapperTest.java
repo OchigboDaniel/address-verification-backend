@@ -2,7 +2,7 @@ package com.address_verification.addressVerificationApp.userAddress.model.mapper
 
 import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;
 import com.address_verification.addressVerificationApp.userAddress.model.User;
-import com.address_verification.addressVerificationApp.userAddress.dto.UserDTO;
+import com.address_verification.addressVerificationApp.userAddress.dto.request.CreateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +13,13 @@ class UserMapperTest {
 
 
     private User user;
-    private UserDTO userDTO;
+    private CreateUserRequest userDTO;
 
     @BeforeEach
     void setUp() {
 
 
-        userDTO = new UserDTO(
+        userDTO = new CreateUserRequest(
                 "John Deo",
                 "johndeo@gmail.com",
                 51.5074,
@@ -31,7 +31,7 @@ class UserMapperTest {
     //Test the Entity to DTO mapper
     @Test
     void shouldMapEntityToDTO(){
-        UserDTO userDTO = UserMapper.convertToDTO(user);
+        CreateUserRequest userDTO = UserMapper.convertToDTO(user);
 
         assertNotNull(userDTO);
         assertEquals(user.getFullName(), userDTO.getFullName());

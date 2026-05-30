@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.dto;
+package com.address_verification.addressVerificationApp.userAddress.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class CreateUserRequest {
     @NotBlank(message = "Full Name is required")
     @Pattern(
             regexp = "^[a-zA-Z ]+$",
@@ -20,7 +20,10 @@ public class UserDTO {
     @Email(message = "Provide a Valid email address")
     private String email;
 
-    @NotBlank(message = "Password is required")
+
+    @NotBlank(
+            message = "Password is neccessary"
+    )
     private String password;
 
 //    @NotBlank(message = "Longitude is required")

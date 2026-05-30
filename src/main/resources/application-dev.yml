@@ -18,3 +18,7 @@ spring:
   security:
     username: daniel
     password: password
+
+  jackson:
+    serialization:
+      indent_output: true
