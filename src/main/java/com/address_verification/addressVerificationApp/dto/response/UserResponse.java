@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.dto.response;
+package com.address_verification.addressVerificationApp.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

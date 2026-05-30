@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.userAddress.model;
 
-import jakarta.annotation.Generated;
+import com.address_verification.addressVerificationApp.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +33,9 @@ public class User {
             nullable = false
     )
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 //    @Column(
 //            nullable = false

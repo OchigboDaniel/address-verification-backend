@@ -1,8 +1,10 @@
-package com.address_verification.addressVerificationApp;
+package com.address_verification.addressVerificationApp.controller;
 
-import com.address_verification.addressVerificationApp.authentication.AuthService;
+import com.address_verification.addressVerificationApp.ApiRespondsData;
+import com.address_verification.addressVerificationApp.dto.request.LoginRequest;
+import com.address_verification.addressVerificationApp.service.authentication.AuthService;
 import com.address_verification.addressVerificationApp.userAddress.UserService;
-import com.address_verification.addressVerificationApp.userAddress.dto.request.CreateUserRequest;
+import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/user/address-verification/api/v1")
-public class Contoller {
+@RequestMapping("/api/auth")
+public class Authentication {
 
     @Autowired
     UserService userService;
@@ -29,8 +31,11 @@ public class Contoller {
         return ResponseEntity.status(201).body(result);
     }
 
-    @GetMapping("/addresses/{id}/verify-address")
-    public ResponseEntity<?> verifyAddress(@PathVariable int id){
-        return userService.verifyUserAddress(id);
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiRespondsData> userLogin(@RequestBody LoginRequest loginRequest){
+        ApiRespondsData<?> result = authService.loginUser(loginRequest);
+        return ResponseEntity.status(200).body(result);
     }
+
 }

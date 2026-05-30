@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.userAddress;
 
-import com.address_verification.addressVerificationApp.userAddress.dto.AddressRequestDTO;
+import com.address_verification.addressVerificationApp.dto.AddressRequestDTO;
 import com.address_verification.addressVerificationApp.userAddress.mapper.AddressMapper;
 import com.address_verification.addressVerificationApp.userAddress.model.Address;
 import com.address_verification.addressVerificationApp.userAddress.model.User;

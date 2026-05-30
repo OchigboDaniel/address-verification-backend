@@ -1,0 +1,83 @@
+package com.address_verification.addressVerificationApp.service.authentication;
+
+import com.address_verification.addressVerificationApp.ApiRespondsData;
+import com.address_verification.addressVerificationApp.JWTUtility;
+import com.address_verification.addressVerificationApp.Role;
+import com.address_verification.addressVerificationApp.dto.LoginResponse;
+import com.address_verification.addressVerificationApp.dto.request.LoginRequest;
+import com.address_verification.addressVerificationApp.exception.EmailAlreadyExistException;
+import com.address_verification.addressVerificationApp.userAddress.UserRepository;
+import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
+import com.address_verification.addressVerificationApp.dto.response.UserResponse;
+import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;
+import com.address_verification.addressVerificationApp.userAddress.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+@Service
+public class AuthService implements IAuthService{
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JWTUtility jwtUtility;
+
+    private final UserRepository userRepository;
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    //Sign users
+    public ApiRespondsData createUser(CreateUserRequest userDTO) {
+
+        //Check if the email already exist
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new EmailAlreadyExistException("Email already exists");
+        }
+
+
+        //Convert DTO to Entity
+        User newUserEntity = UserMapper.convertToEntity(userDTO);
+        newUserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        newUserEntity.setRole(Role.USER);
+
+        //Save user Entity in the database
+        userRepository.save(newUserEntity);
+
+        //Response Data
+        UserResponse userResponse = new UserResponse(newUserEntity.getId(),userDTO.getFullName(), userDTO.getEmail());
+
+        return  new ApiRespondsData<>("User created successfully", newUserEntity);
+    }
+
+    //Login Users
+
+    @Override
+    public ApiRespondsData<Map<String,String>> loginUser(LoginRequest loginRequest) {
+
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getEmail(), loginRequest.getPassword())
+            );
+
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        //Generate JWT token
+        String jwtToken = jwtUtility.generateToken(loginRequest.getEmail());
+
+
+        return new ApiRespondsData("User Authenticated", Map.of("token", jwtToken));
+    }
+}

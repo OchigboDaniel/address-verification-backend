@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.dto;
+package com.address_verification.addressVerificationApp.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

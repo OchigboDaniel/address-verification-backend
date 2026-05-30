@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.dto.request;
+package com.address_verification.addressVerificationApp.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

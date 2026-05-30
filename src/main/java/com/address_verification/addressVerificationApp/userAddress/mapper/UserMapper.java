@@ -1,7 +1,7 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
 import com.address_verification.addressVerificationApp.userAddress.model.User;
-import com.address_verification.addressVerificationApp.userAddress.dto.request.CreateUserRequest;
+import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 
 public class UserMapper {
     // Converts User Entity to userDTO
@@ -14,7 +14,7 @@ public class UserMapper {
     }
 
     // Convert UserDTO to Entity
-    public static  User convertToEntity(CreateUserRequest userDTO){
+    public static User convertToEntity(CreateUserRequest userDTO){
         User userEntity = new User();
         userEntity.setFullName(userDTO.getFullName());
         userEntity.setEmail(userDTO.getEmail());
