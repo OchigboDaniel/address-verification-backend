@@ -4,6 +4,7 @@ import com.address_verification.addressVerificationApp.ApiRespondsData;
 import com.address_verification.addressVerificationApp.controller.AuthenticationController;
 import com.address_verification.addressVerificationApp.dto.AddressDTO;
 import com.address_verification.addressVerificationApp.dto.GeolocationDTO;
+import com.address_verification.addressVerificationApp.dto.response.AddressResponse;
 import com.address_verification.addressVerificationApp.exception.EmailException;
 import com.address_verification.addressVerificationApp.userAddress.AddressRepository;
 import com.address_verification.addressVerificationApp.userAddress.UserRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ public class VerifyAddressService implements IVerifyAddressService {
 
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
+
 
     private final RestTemplate restTemplate;
     HttpHeaders headers = new HttpHeaders();
@@ -112,5 +115,29 @@ public class VerifyAddressService implements IVerifyAddressService {
         return new ApiRespondsData<>("Address Verified", addressDTO);
     }
 
+    @Override
+    public ApiRespondsData<List<AddressResponse> > getAllUserandAddress() {
 
+        ArrayList<AddressResponse> allAddressPlusEmail = new ArrayList<>();
+
+        //Get all users from DB
+        List<Address> allAddressData = addressRepository.findAll();
+
+        for (Address address : allAddressData){
+
+            AddressResponse addressResponse = new AddressResponse();
+
+            addressResponse.setId(address.getId());
+            addressResponse.setLatitude(address.getLatitude());
+            addressResponse.setLongitude(address.getLongitude());
+            addressResponse.setState(address.getState());
+            addressResponse.setCountry(address.getCountry());
+            addressResponse.setFormattedAddress(address.getFormattedAddress());
+            addressResponse.setOwnerEmail(address.getUser().getEmail());
+
+            allAddressPlusEmail.add(addressResponse);
+        }
+
+        return new ApiRespondsData<>("Retrieved all address", allAddressPlusEmail);
+    }
 }
