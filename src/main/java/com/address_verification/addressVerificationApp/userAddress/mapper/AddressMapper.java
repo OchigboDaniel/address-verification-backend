@@ -1,12 +1,13 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
-import com.address_verification.addressVerificationApp.dto.AddressRequestDTO;
+import com.address_verification.addressVerificationApp.dto.AddressDTO;
 import com.address_verification.addressVerificationApp.userAddress.model.Address;
 
 public class AddressMapper {
-    public static AddressRequestDTO convertToDTO(Address address){
-        AddressRequestDTO addressRequestDTO = new AddressRequestDTO();
-        addressRequestDTO.setCity(address.getCity());
+    public static AddressDTO convertToDTO(Address address){
+        AddressDTO addressRequestDTO = new AddressDTO();
+        addressRequestDTO.setLatitude(address.getLatitude());
+        addressRequestDTO.setLongitude(address.getLongitude());
         addressRequestDTO.setState(address.getState());
         addressRequestDTO.setCountry(address.getCountry());
         addressRequestDTO.setFormattedAddress(address.getFormattedAddress());
@@ -15,9 +16,10 @@ public class AddressMapper {
     }
 
 
-    public static Address convertToAddressEntity(AddressRequestDTO addressRequestDTO){
+    public static Address convertToAddressEntity(AddressDTO addressRequestDTO){
         Address address = new Address();
-        address.setCity(addressRequestDTO.getCity());
+        address.setLatitude(addressRequestDTO.getLatitude());
+        address.setLongitude(addressRequestDTO.getLongitude());
         address.setState(addressRequestDTO.getState());
         address.setCountry(addressRequestDTO.getCountry());
         address.setFormattedAddress(addressRequestDTO.getFormattedAddress());

@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.userAddress;
 
-import com.address_verification.addressVerificationApp.controller.Authentication;
+import com.address_verification.addressVerificationApp.controller.AuthenticationController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,11 +11,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class UserAddressContollerTest {
 
 
-    private Authentication userAddressContoller;
+    private AuthenticationController userAddressContoller;
 
     @BeforeEach
     void setUp() {
-        userAddressContoller = new Authentication();
+        userAddressContoller = new AuthenticationController();
     }
 
     @Test

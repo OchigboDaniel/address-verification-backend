@@ -3,6 +3,7 @@ package com.address_verification.addressVerificationApp.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
@@ -30,13 +31,22 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(EmailAlreadyExistException.class)
-    public ResponseEntity<?> handleEmailExists(EmailAlreadyExistException ex) {
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<?> handleEmailExists(EmailException ex) {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(Map.of(
                         "message", ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleBadCredentials(BadCredentialsException ex) {
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of(
+                        "message", "Incorrect email or password"
                 ));
     }
 }

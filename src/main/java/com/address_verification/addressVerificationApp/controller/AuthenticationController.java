@@ -3,7 +3,7 @@ package com.address_verification.addressVerificationApp.controller;
 import com.address_verification.addressVerificationApp.ApiRespondsData;
 import com.address_verification.addressVerificationApp.dto.request.LoginRequest;
 import com.address_verification.addressVerificationApp.service.authentication.AuthService;
-import com.address_verification.addressVerificationApp.userAddress.UserService;
+import com.address_verification.addressVerificationApp.service.VerifyAddressService;
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-public class Authentication {
+public class AuthenticationController {
 
     @Autowired
-    UserService userService;
+    VerifyAddressService userService;
     @Autowired
     AuthService authService;
 

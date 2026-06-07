@@ -18,7 +18,11 @@ public class Address {
     @Column(
             nullable = false
     )
-    private String city;
+    private Double latitude;
+    @Column(
+            nullable = false
+    )
+    private Double longitude;
     @Column(
             nullable = false
     )
