@@ -17,10 +17,14 @@ public class CreateCSVFile {
 
         //Insert the body
         for(AddressResponse addressResponse : listAddressResponses){
-            sb.append(addressResponse.getFormattedAddress()).append(",");
+            sb.append("\"")
+                    .append(addressResponse.getFormattedAddress())
+                    .append("\"")
+                    .append(",");
             sb.append(addressResponse.getState()).append(",");
             sb.append(addressResponse.getCountry()).append(",");
             sb.append(addressResponse.getOwnerEmail()).append(",");
+            sb.append("\n");
         }
 
         return sb.toString();

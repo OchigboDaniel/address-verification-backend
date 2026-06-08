@@ -3,6 +3,7 @@ package com.address_verification.addressVerificationApp.service.authentication;
 import com.address_verification.addressVerificationApp.ApiRespondsData;
 import com.address_verification.addressVerificationApp.JWTUtility;
 import com.address_verification.addressVerificationApp.Role;
+import com.address_verification.addressVerificationApp.dto.LoginResponse;
 import com.address_verification.addressVerificationApp.dto.request.LoginRequest;
 import com.address_verification.addressVerificationApp.exception.EmailException;
 import com.address_verification.addressVerificationApp.userAddress.UserRepository;
@@ -80,7 +81,15 @@ public class AuthService implements IAuthService{
             //Generate JWT token
         String jwtToken = jwtUtility.generateToken(loginRequest.getEmail());
 
+        // Get user role
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return new ApiRespondsData("User Authenticated", Map.of("token", jwtToken));
+        Role role = user.getRole();
+
+        LoginResponse loginResponse = new LoginResponse(jwtToken, role);
+
+
+        return new ApiRespondsData("User Authenticated", loginResponse);
     }
 }
