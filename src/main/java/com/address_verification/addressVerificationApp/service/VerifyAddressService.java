@@ -68,7 +68,9 @@ public class VerifyAddressService implements IVerifyAddressService {
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Map> result = restTemplate.exchange(requestString, HttpMethod.GET, entity, Map.class);
+        ResponseEntity<Map> result = restTemplate.exchange(
+                requestString, HttpMethod.GET, entity, Map.class
+        );
 
         Map<String, Object> body = result.getBody();
 
@@ -96,6 +98,8 @@ public class VerifyAddressService implements IVerifyAddressService {
 
         AddressDTO addressDTO = new AddressDTO(latitude,longitude,state,country,formattedAddress);
 
+
+
         //Convert to Entity
         Address addressEntity = AddressMapper.convertToAddressEntity(addressDTO);
 
@@ -106,12 +110,26 @@ public class VerifyAddressService implements IVerifyAddressService {
                 .orElseThrow(() -> new EmailException("Emial not Found"));
 
 
-        //set User Address details
-        user.setAddress(addressEntity);
-        addressEntity.setUser(user);
 
-        //Save to DB
-        addressRepository.save(addressEntity);
+        // Get the users address
+        Address existingAddress = user.getAddress();
+        //If user already has an address update the address
+        if (existingAddress != null) {
+            // Update existing address
+            existingAddress.setLatitude(addressEntity.getLatitude());
+            existingAddress.setLongitude(addressEntity.getLongitude());
+            existingAddress.setFormattedAddress(addressEntity.getFormattedAddress());
+            existingAddress.setCountry(addressEntity.getCountry());
+            existingAddress.setState(addressEntity.getState());
+
+            addressRepository.save(existingAddress);
+        } else {
+            // Create new address
+            user.setAddress(addressEntity);
+            addressEntity.setUser(user);
+
+            addressRepository.save(addressEntity);
+        }
 
         return new ApiRespondsData<>("Address Verified", addressDTO);
     }
