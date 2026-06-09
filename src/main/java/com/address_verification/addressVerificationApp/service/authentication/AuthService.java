@@ -6,7 +6,7 @@ import com.address_verification.addressVerificationApp.Role;
 import com.address_verification.addressVerificationApp.dto.LoginResponse;
 import com.address_verification.addressVerificationApp.dto.request.LoginRequest;
 import com.address_verification.addressVerificationApp.exception.EmailException;
-import com.address_verification.addressVerificationApp.userAddress.UserRepository;
+import com.address_verification.addressVerificationApp.repository.UserRepository;
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 import com.address_verification.addressVerificationApp.dto.response.UserResponse;
 import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;

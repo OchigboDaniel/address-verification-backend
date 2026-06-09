@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress;
+package com.address_verification.addressVerificationApp.repository;
 
 import com.address_verification.addressVerificationApp.model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;

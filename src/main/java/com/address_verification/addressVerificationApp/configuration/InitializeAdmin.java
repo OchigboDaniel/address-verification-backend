@@ -2,8 +2,8 @@ package com.address_verification.addressVerificationApp.configuration;
 
 
 import com.address_verification.addressVerificationApp.Role;
-import com.address_verification.addressVerificationApp.userAddress.AddressRepository;
-import com.address_verification.addressVerificationApp.userAddress.UserRepository;
+import com.address_verification.addressVerificationApp.repository.AddressRepository;
+import com.address_verification.addressVerificationApp.repository.UserRepository;
 import com.address_verification.addressVerificationApp.model.Address;
 import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.boot.CommandLineRunner;
