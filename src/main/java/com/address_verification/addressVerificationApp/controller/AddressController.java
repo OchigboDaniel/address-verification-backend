@@ -7,6 +7,9 @@ import com.address_verification.addressVerificationApp.dto.GeolocationDTO;
 import com.address_verification.addressVerificationApp.dto.response.AddressResponse;
 import com.address_verification.addressVerificationApp.service.VerifyAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +25,7 @@ public class AddressController {
 
 
     @PostMapping("/verify-address")
-    public ResponseEntity<ApiRespondsData<AddressDTO>> verifyAddress(@RequestBody GeolocationDTO geolocationDTO){
+    public ResponseEntity<ApiRespondsData<AddressDTO>> verifyAddress(@RequestBody GeolocationDTO geolocationDTO) {
         ApiRespondsData<AddressDTO> result = verifyAddressService.verifyUserAddress(geolocationDTO);
         return ResponseEntity.status(201).body(result);
     }
@@ -30,12 +33,28 @@ public class AddressController {
     @GetMapping("/address")
     public ResponseEntity<?> getAllAddress(
             @RequestParam(defaultValue = "csv") String format,
-            @RequestParam(defaultValue = "false") String export){
+            @RequestParam(defaultValue = "false") String export,
 
-        //call the address service and get data
-        ApiRespondsData<List<AddressResponse>> apiRespondsData = verifyAddressService.getAllUserandAddress();
+            //Pagination parameters
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
 
-        if(!export.equals("false")) {
+        // Build Pageable
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort );
+
+
+
+        if (!export.equals("false")) {
+
+            //call the address service and get data
+            ApiRespondsData<List<AddressResponse>> apiRespondsData = verifyAddressService.getAllUserandAddressForExport();
 
             String csvString = CreateCSVFile.setCSVString(apiRespondsData.getData());
 
@@ -52,6 +71,6 @@ public class AddressController {
         }
 
         return ResponseEntity.ok()
-                .body(apiRespondsData);
+                .body(verifyAddressService.getAllUserandAddress(pageable));
     }
 }

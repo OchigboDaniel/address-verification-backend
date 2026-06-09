@@ -12,6 +12,8 @@ import com.address_verification.addressVerificationApp.model.Address;
 import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -115,15 +117,39 @@ public class VerifyAddressService implements IVerifyAddressService {
     }
 
     @Override
-    public ApiRespondsData<List<AddressResponse> > getAllUserandAddress() {
+    public ApiRespondsData<Page<AddressResponse> > getAllUserandAddress(Pageable pageable) {
+
+        ArrayList<AddressResponse> allAddressPlusEmail = new ArrayList<>();
+
+        //Get all users from DB with pagination
+        Page<Address> allAddressData = addressRepository.findAll(pageable);
+
+        Page<AddressResponse> responsePage = allAddressData.map(address -> {
+            AddressResponse addressResponse = new AddressResponse();
+            addressResponse.setId(address.getId());
+            addressResponse.setLatitude(address.getLatitude());
+            addressResponse.setLongitude(address.getLongitude());
+            addressResponse.setState(address.getState());
+            addressResponse.setCountry(address.getCountry());
+            addressResponse.setFormattedAddress(address.getFormattedAddress());
+            addressResponse.setOwnerEmail(address.getUser().getEmail());
+        return addressResponse;
+    });
+
+        return new ApiRespondsData<>("Retrieved all address", responsePage);
+    }
+
+    //Export Service
+    @Override
+    public ApiRespondsData<List<AddressResponse>> getAllUserandAddressForExport() {
 
         ArrayList<AddressResponse> allAddressPlusEmail = new ArrayList<>();
 
         //Get all users from DB
         List<Address> allAddressData = addressRepository.findAll();
 
-        for (Address address : allAddressData){
 
+        for (Address address : allAddressData){
             AddressResponse addressResponse = new AddressResponse();
 
             addressResponse.setId(address.getId());
@@ -136,6 +162,7 @@ public class VerifyAddressService implements IVerifyAddressService {
 
             allAddressPlusEmail.add(addressResponse);
         }
+
 
         return new ApiRespondsData<>("Retrieved all address", allAddressPlusEmail);
     }
