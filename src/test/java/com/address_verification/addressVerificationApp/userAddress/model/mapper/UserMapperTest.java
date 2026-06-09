@@ -1,7 +1,7 @@
 package com.address_verification.addressVerificationApp.userAddress.model.mapper;
 
 import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.User;
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

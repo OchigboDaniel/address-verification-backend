@@ -10,7 +10,7 @@ import com.address_verification.addressVerificationApp.userAddress.UserRepositor
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 import com.address_verification.addressVerificationApp.dto.response.UserResponse;
 import com.address_verification.addressVerificationApp.userAddress.mapper.UserMapper;
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

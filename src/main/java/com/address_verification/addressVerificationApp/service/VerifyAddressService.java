@@ -1,7 +1,6 @@
 package com.address_verification.addressVerificationApp.service;
 
 import com.address_verification.addressVerificationApp.ApiRespondsData;
-import com.address_verification.addressVerificationApp.controller.AuthenticationController;
 import com.address_verification.addressVerificationApp.dto.AddressDTO;
 import com.address_verification.addressVerificationApp.dto.GeolocationDTO;
 import com.address_verification.addressVerificationApp.dto.response.AddressResponse;
@@ -9,8 +8,8 @@ import com.address_verification.addressVerificationApp.exception.EmailException;
 import com.address_verification.addressVerificationApp.userAddress.AddressRepository;
 import com.address_verification.addressVerificationApp.userAddress.UserRepository;
 import com.address_verification.addressVerificationApp.userAddress.mapper.AddressMapper;
-import com.address_verification.addressVerificationApp.userAddress.model.Address;
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.Address;
+import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.http.HttpEntity;

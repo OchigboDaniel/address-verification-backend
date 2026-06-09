@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.service.authentication;
 
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

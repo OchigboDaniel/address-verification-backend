@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.model;
+package com.address_verification.addressVerificationApp.model;
 
 
 import jakarta.persistence.*;

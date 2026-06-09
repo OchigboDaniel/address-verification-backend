@@ -1,7 +1,7 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
 import com.address_verification.addressVerificationApp.dto.AddressDTO;
-import com.address_verification.addressVerificationApp.userAddress.model.Address;
+import com.address_verification.addressVerificationApp.model.Address;
 
 public class AddressMapper {
     public static AddressDTO convertToDTO(Address address){

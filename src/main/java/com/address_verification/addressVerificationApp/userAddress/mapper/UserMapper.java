@@ -1,6 +1,6 @@
 package com.address_verification.addressVerificationApp.userAddress.mapper;
 
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.User;
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
 
 public class UserMapper {

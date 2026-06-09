@@ -1,7 +1,7 @@
 package com.address_verification.addressVerificationApp.service.authentication;
 
 import com.address_verification.addressVerificationApp.userAddress.UserRepository;
-import com.address_verification.addressVerificationApp.userAddress.model.User;
+import com.address_verification.addressVerificationApp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

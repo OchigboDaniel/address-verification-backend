@@ -1,4 +1,4 @@
-package com.address_verification.addressVerificationApp.userAddress.model;
+package com.address_verification.addressVerificationApp.model;
 
 import com.address_verification.addressVerificationApp.dto.AddressDTO;
 import com.address_verification.addressVerificationApp.dto.request.CreateUserRequest;
