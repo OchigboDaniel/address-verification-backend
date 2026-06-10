@@ -14,7 +14,7 @@ public interface IVerifyAddressService {
 
     ApiRespondsData<AddressDTO> verifyUserAddress(GeolocationDTO geolocation);
 
-    ApiRespondsData<Page<AddressResponse>> getAllUserandAddress(Pageable pageable);
+    ApiRespondsData<Page<AddressResponse>> getAllUserandAddress(Pageable pageable, String country, String state, String email);
 
     ApiRespondsData<List<AddressResponse>> getAllUserandAddressForExport();
 

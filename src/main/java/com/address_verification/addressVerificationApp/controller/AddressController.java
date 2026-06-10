@@ -35,11 +35,19 @@ public class AddressController {
             @RequestParam(defaultValue = "csv") String format,
             @RequestParam(defaultValue = "false") String export,
 
+
+            //Filtering parameter
+            @RequestParam(defaultValue = "") String country,
+            @RequestParam(defaultValue = "") String state,
+            @RequestParam(defaultValue = "") String email,
+
             //Pagination parameters
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction
+
+
     ) {
 
         // Build Pageable
@@ -71,6 +79,6 @@ public class AddressController {
         }
 
         return ResponseEntity.ok()
-                .body(verifyAddressService.getAllUserandAddress(pageable));
+                .body(verifyAddressService.getAllUserandAddress(pageable, country, state, email));
     }
 }

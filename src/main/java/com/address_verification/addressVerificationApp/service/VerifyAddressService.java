@@ -10,10 +10,12 @@ import com.address_verification.addressVerificationApp.repository.UserRepository
 import com.address_verification.addressVerificationApp.userAddress.mapper.AddressMapper;
 import com.address_verification.addressVerificationApp.model.Address;
 import com.address_verification.addressVerificationApp.model.User;
+import com.address_verification.addressVerificationApp.utils.AddressSpecification;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -135,12 +137,13 @@ public class VerifyAddressService implements IVerifyAddressService {
     }
 
     @Override
-    public ApiRespondsData<Page<AddressResponse> > getAllUserandAddress(Pageable pageable) {
+    public ApiRespondsData<Page<AddressResponse> > getAllUserandAddress(Pageable pageable, String country, String state, String email) {
 
         ArrayList<AddressResponse> allAddressPlusEmail = new ArrayList<>();
 
-        //Get all users from DB with pagination
-        Page<Address> allAddressData = addressRepository.findAll(pageable);
+        //Get all users from DB with pagination and filter
+        Specification<Address> spec = AddressSpecification.withFilters(country, state, email);
+        Page<Address> allAddressData = addressRepository.findAll(spec, pageable);
 
         Page<AddressResponse> responsePage = allAddressData.map(address -> {
             AddressResponse addressResponse = new AddressResponse();
