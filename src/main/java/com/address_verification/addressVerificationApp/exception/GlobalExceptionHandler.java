@@ -1,5 +1,6 @@
 package com.address_verification.addressVerificationApp.exception;
 
+import com.address_verification.addressVerificationApp.ApiRespondsData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -7,27 +8,34 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Google API returned a 4xx error (bad request, invalid key, etc.)
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<?> geoCodeAPIException(HttpClientErrorException ex){
+    public ResponseEntity<?> handleGeoCodeClientError(HttpClientErrorException ex) {
+        return ResponseEntity
+                .status(502)
+                .body(new ApiRespondsData<>("Geocoding service returned an error", null));
+    }
 
-        HttpStatusCode status = ex.getStatusCode();
-        String message = ex.getMessage();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(ex.getResponseBodyAsString());
+    // Google API is unreachable or timed out
+    @ExceptionHandler(ResourceAccessException.class)
+    public ResponseEntity<Map<String, String>> handleGeoCodeServiceDown(ResourceAccessException ex) {
+        Map<String, String> messageMap = new HashMap<>();
+        messageMap.put("message", "Geocoding service is unavailable");
 
         return ResponseEntity
-                .status(status)
-                .body(ex.getResponseBodyAsString());
+                .status(503)
+                .body(messageMap);
     }
 
 

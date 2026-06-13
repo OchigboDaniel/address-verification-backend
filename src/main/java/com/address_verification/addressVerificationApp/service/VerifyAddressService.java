@@ -70,9 +70,14 @@ public class VerifyAddressService implements IVerifyAddressService {
 
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Map> result = restTemplate.exchange(
-                requestString, HttpMethod.GET, entity, Map.class
-        );
+        ResponseEntity<Map> result;
+        try {
+            result = restTemplate.exchange(
+                    requestString, HttpMethod.GET, entity, Map.class
+            );
+        } catch (Exception e) {
+            throw e;
+        }
 
         Map<String, Object> body = result.getBody();
 
@@ -125,6 +130,8 @@ public class VerifyAddressService implements IVerifyAddressService {
             existingAddress.setState(addressEntity.getState());
 
             addressRepository.save(existingAddress);
+
+            return new ApiRespondsData<>("Address Verified and Updated", addressDTO);
         } else {
             // Create new address
             user.setAddress(addressEntity);
