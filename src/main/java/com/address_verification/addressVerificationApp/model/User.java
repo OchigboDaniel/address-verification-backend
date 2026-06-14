@@ -1,6 +1,7 @@
 package com.address_verification.addressVerificationApp.model;
 
 import com.address_verification.addressVerificationApp.Role;
+import com.address_verification.addressVerificationApp.VerificationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,16 +38,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @Column(
-//            nullable = false
-//    )
-//    private Double longitude;
-//
-//    @Column(
-//            nullable = false
-//    )
-//    private Double latitude;
-
     @OneToOne(mappedBy = "user")
     private Address address;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    private Verification verification;
 }

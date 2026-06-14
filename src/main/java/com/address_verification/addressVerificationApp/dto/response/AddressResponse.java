@@ -14,5 +14,6 @@ public class AddressResponse {
     String country;
     String state;
     String formattedAddress;
+    String validationStatus;
     String ownerEmail;
 }

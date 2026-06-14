@@ -5,6 +5,7 @@ import com.address_verification.addressVerificationApp.dto.AddressDTO;
 import com.address_verification.addressVerificationApp.dto.GeolocationDTO;
 import com.address_verification.addressVerificationApp.dto.response.AddressResponse;
 import com.address_verification.addressVerificationApp.exception.EmailException;
+import com.address_verification.addressVerificationApp.model.Verification;
 import com.address_verification.addressVerificationApp.repository.AddressRepository;
 import com.address_verification.addressVerificationApp.repository.UserRepository;
 import com.address_verification.addressVerificationApp.userAddress.mapper.AddressMapper;
@@ -122,25 +123,19 @@ public class VerifyAddressService implements IVerifyAddressService {
         Address existingAddress = user.getAddress();
         //If user already has an address update the address
         if (existingAddress != null) {
-            // Update existing address
             existingAddress.setLatitude(addressEntity.getLatitude());
             existingAddress.setLongitude(addressEntity.getLongitude());
             existingAddress.setFormattedAddress(addressEntity.getFormattedAddress());
-            existingAddress.setCountry(addressEntity.getCountry());
             existingAddress.setState(addressEntity.getState());
-
+            existingAddress.setCountry(addressEntity.getCountry());
             addressRepository.save(existingAddress);
-
             return new ApiRespondsData<>("Address Verified and Updated", addressDTO);
         } else {
-            // Create new address
             user.setAddress(addressEntity);
             addressEntity.setUser(user);
-
             addressRepository.save(addressEntity);
+            return new ApiRespondsData<>("Address Verified", addressDTO);
         }
-
-        return new ApiRespondsData<>("Address Verified", addressDTO);
     }
 
     @Override
@@ -161,6 +156,14 @@ public class VerifyAddressService implements IVerifyAddressService {
             addressResponse.setCountry(address.getCountry());
             addressResponse.setFormattedAddress(address.getFormattedAddress());
             addressResponse.setOwnerEmail(address.getUser().getEmail());
+
+            // Get bill verification status if it exists
+            Verification verification = address.getUser().getVerification();
+            if (verification != null) {
+                addressResponse.setValidationStatus(verification.getStatus().name());
+            } else {
+                addressResponse.setValidationStatus("NOT_SUBMITTED");
+            }
         return addressResponse;
     });
 
