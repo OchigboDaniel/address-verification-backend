@@ -1,5 +1,6 @@
 package com.address_verification.addressVerificationApp.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -12,6 +13,9 @@ import java.util.List;
 @Configuration
 public class Config {
 
+    @Value("${ALLOWED_ORIGIN}")
+    private String allowedOrigin;
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -21,7 +25,7 @@ public class Config {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of(allowedOrigin));
         configuration.setAllowedMethods(List.of("GET","POST"));
         configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
 
